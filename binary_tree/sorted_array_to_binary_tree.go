@@ -40,3 +40,29 @@ func sortedArrayToBSTHelper(nums []int, start, end int) *TreeNode  {
 
 	return root
 }
+
+
+func sortedArrayToBST2(nums []int) *TreeNode {
+	if len(nums) == 0 {
+		return nil
+	}
+
+
+}
+
+func sortedArrayToBSTHelper2(nums []int, start, end int) *TreeNode  {
+	if start > end {
+		return nil
+	}
+
+	mid := end - (end - start) / 2
+
+	root := &TreeNode{
+		Val:   nums[mid],
+	}
+
+	root.Left = sortedArrayToBSTHelper2(nums, start, mid - 1)
+	root.Right = sortedArrayToBSTHelper2(nums, mid + 1, end)
+
+	return root
+}

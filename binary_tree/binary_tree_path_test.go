@@ -66,3 +66,75 @@ func binaryTreePathsHelper(root *TreeNode, path *list.List, paths *[]string) {
 	binaryTreePathsHelper(root.Right, path, paths)
 	path.Remove(last)
 }
+
+func binaryTreePaths3(root *TreeNode) []string {
+	if root == nil {
+		return nil
+	}
+
+	stack := list.New()
+	stack.PushBack(root)
+	ret := make([]string,0)
+	binaryTreePathsHelper2(root, stack, &ret)
+
+	return ret
+}
+
+func binaryTreePathsHelper2(root *TreeNode, stack *list.List, paths *[]string)  {
+	if root == nil {
+		return
+	}
+
+	if root.Left == nil && root.Right == nil {
+		path := ""
+		for cur := stack.Front(); cur != nil; cur = cur.Next() {
+			curValue := cur.Value.(*TreeNode)
+			path += strconv.Itoa(curValue.Val)
+			if cur.Next() != nil {
+				path += "->"
+			}
+		}
+		*paths = append(*paths, path)
+	}
+
+	stack.PushBack(root.Left)
+	binaryTreePathsHelper2(root.Left, stack, paths)
+	stack.Remove(stack.Back())
+
+
+	stack.PushBack(root.Right)
+	binaryTreePathsHelper2(root.Right, stack, paths)
+	stack.Remove(stack.Back())
+}
+
+
+
+func binaryTreePaths4(root *TreeNode) []string {
+	if root == nil {
+		return nil
+	}
+
+	ret := make([]string,0)
+	binaryTreePathsHelper4(root, "", &ret)
+
+	return ret
+}
+
+func binaryTreePathsHelper4(root *TreeNode, path string, paths *[]string)  {
+	if root == nil {
+		return
+	}
+
+	if root.Left == nil && root.Right == nil {
+		*paths = append(*paths, path)
+		return
+	}
+
+	if root.Left != nil {
+		binaryTreePathsHelper4(root.Left, path + "->" + strconv.Itoa(root.Left.Val), paths)
+	}
+
+	if root.Right != nil {
+		binaryTreePathsHelper4(root.Right, path + "->" + strconv.Itoa(root.Left.Val), paths)
+	}
+}

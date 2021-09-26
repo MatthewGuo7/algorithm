@@ -10,8 +10,10 @@ func sortList(head *ListNode) *ListNode {
 	mid := findMid(head)
 
 	// 对左右两边分别进行排序
-	rightList := sortList(mid.Next)
+	next := mid.Next
 	mid.Next = nil
+
+	rightList := sortList(next)
 	leftList := sortList(head)
 	// 合并两个链表
 
@@ -19,13 +21,6 @@ func sortList(head *ListNode) *ListNode {
 }
 
 func mergeTwoList(first *ListNode, second *ListNode) *ListNode {
-	if first == nil {
-		return second
-	}
-
-	if second == nil {
-		return first
-	}
 
 	dummyNode := ListNode{}
 	curOfDummy := dummyNode.Next
@@ -52,7 +47,9 @@ func mergeTwoList(first *ListNode, second *ListNode) *ListNode {
 
 	if curFirst != nil {
 		curOfDummy.Next = curFirst
-	} else {
+	}
+
+	if curSecond != nil {
 		curOfDummy.Next = curSecond
 	}
 
@@ -73,4 +70,38 @@ func findMid(head *ListNode) *ListNode {
 	}
 
 	return slow
+}
+
+
+func sortList2(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return nil
+	}
+
+	// 找到中点
+	mid := findMid(head)
+
+	//partition
+	leftDummy := ListNode{}
+	rightDummy := ListNode{}
+
+	left := &leftDummy
+	right := &rightDummy
+
+	for head != nil {
+		if head.Val < mid.Val {
+			left.Next = head
+
+			left = left.Next
+		} else {
+			right.Next = head
+			right = right.Next
+		}
+
+		head = head.Next
+	}
+
+	left.Next = rightDummy.Next
+	right.Next = nil
+
 }
