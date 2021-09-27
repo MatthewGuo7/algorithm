@@ -20,9 +20,9 @@ func subsetsDFS(nums []int, index int, subset *[]int, subsets *[][]int) {
 	*subsets = append(*subsets, temp)
 
 	for tempIndex := index; tempIndex < len(nums); tempIndex++ {
-		//*subset = append(*subset, nums[tempIndex])
+		*subset = append(*subset, nums[tempIndex])
 		subsetsDFS(nums, index+1, subset, subsets)
-		//*subset = (*subset)[:len(*subset)-1]
+		*subset = (*subset)[:len(*subset)-1]
 	}
 }
 
