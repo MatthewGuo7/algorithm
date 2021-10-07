@@ -94,7 +94,9 @@ func permuteUniqueDFS(nums []int, visited []int, permute *[]int,
 }
 
 func TestPmutestUnique(t *testing.T) {
-	input := []int{3,3,0,3}
-	ret := permuteUnique(input)
-	fmt.Println(ret)
+	input1 := [5]int{}
+	fmt.Println(input1)
+	//input := []int{3,3,0,3}
+	//ret := permuteUnique(input)
+	//fmt.Println(ret)
 }
