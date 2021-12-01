@@ -38,7 +38,7 @@ func largestRectangleArea2(heights []int) int {
 
 	for i := 0; i < len(heights);i++{
 		accumulatedWidth := 0
-		
+
 		for len(stack) > 0 && stack[len(stack)-1].Height > heights[i] {
 			top := stack[len(stack)-1]
 
