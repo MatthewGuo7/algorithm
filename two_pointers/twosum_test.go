@@ -26,3 +26,29 @@ func twoSum(nums []int, target int) []int {
 
 	return ret
 }
+
+func twoSum2(numbers []int, target int) []int {
+	if len(numbers) < 2 {
+		return nil
+	}
+
+	i := 0;
+	j := len(numbers) - 1
+
+	for ; i < len(numbers); i++ {
+		for j > i && numbers[i] + numbers[j] != target{
+			j--
+		}
+
+		if j <= i {
+			break
+		}
+
+		if numbers[i] + numbers[j] == target{
+			return []int{i+1, j+2}
+		}
+
+	}
+
+	return nil
+}

@@ -69,3 +69,29 @@ func twoSum77(numbers []int, target int) []int {
 
 	return nil
 }
+
+func twoSum72(numbers []int, target int) []int {
+	if len(numbers) < 2 {
+		return nil
+	}
+
+	i, j := 0, 0
+	target = int(math.Abs(float64(target)))
+
+	for ; i < len(numbers);i++{
+		j = int(math.Max(float64(j), float64(i+1)))
+		for j < len(numbers) && numbers[j]-numbers[i] < target {
+			j++
+		}
+
+		if j >= len(numbers) {
+			break
+		}
+
+		if numbers[j]-numbers[i] == target {
+			return []int{i,j}
+		}
+	}
+
+	return nil
+}
