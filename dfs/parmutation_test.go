@@ -93,6 +93,42 @@ func permuteUniqueDFS(nums []int, visited []int, permute *[]int,
 	}
 }
 
+func permute2(nums []int) [][]int {
+	ret := make([][]int, 0)
+
+	if len(nums) == 0 {
+		return  ret
+	}
+	visited := make([]int, len(nums))
+	chosen := make([]int, 0)
+	permuteRecursive(nums, 0, &visited, &chosen, &ret)
+
+	return ret
+}
+
+func permuteRecursive(nums []int, index int,visited *[]int, chosen *[]int, answer *[][]int){
+
+	if len(*chosen) == len(nums) {
+		tmp := make([]int, len(*chosen))
+		copy(tmp, *chosen)
+		*answer = append(*answer, tmp)
+
+		return
+	}
+
+	for start := 0; start < len(nums); start++{
+		if (*visited)[start] == 1 {
+			continue
+		}
+
+		*chosen = append(*chosen, nums[start])
+		(*visited)[start] = 1
+		permuteRecursive(nums, index+1, visited, chosen, answer)
+		(*visited)[start] = 0
+		*chosen = (*chosen)[:len(*chosen)-1]
+	}
+}
+
 func TestPmutestUnique(t *testing.T) {
 	input1 := [5]int{}
 	fmt.Println(input1)

@@ -56,3 +56,31 @@ func subsetsWithDupDFS(nums []int, offset int, subset *[]int, subsets *[][]int) 
 		*subset = (*subset)[:len(*subset)-1]
 	}
 }
+
+func subsets2(nums []int) [][]int {
+	if len(nums) == 0 {
+		return nil
+	}
+
+	ret := make([][]int, 0)
+	curAnswer := make([]int,0)
+	subsetsRecur(nums, 0, &curAnswer, &ret)
+
+	return ret
+}
+
+func subsetsRecur(nums []int, index int, curAnswer *[]int, answer *[][]int) {
+	if index == len(nums) {
+		tmp := make([]int, len(*curAnswer))
+		copy(tmp, *curAnswer)
+		*answer = append(*answer, tmp)
+
+		return
+	}
+
+	subsetsRecur(nums, index+1, curAnswer, answer)
+
+	*curAnswer = append(*curAnswer, nums[index])
+	subsetsRecur(nums, index+1, curAnswer, answer)
+	*curAnswer = (*curAnswer)[:len(*curAnswer)-1]
+}

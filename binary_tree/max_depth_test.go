@@ -34,3 +34,28 @@ func (r *MaxDepth) GetMaxDepthHelper(root *TreeNode, curDepth int) {
 	r.GetMaxDepthHelper(root.Right, curDepth+1)
 
 }
+
+func maxDepth2(root *TreeNode) int {
+	answer := 0
+	maxDepth2Helper(root, 1, &answer)
+
+	return answer
+}
+
+func maxDepth2Helper(root *TreeNode, curDepth int, answer *int) {
+	if root == nil {
+		return
+	}
+
+	if curDepth > *answer {
+		*answer = curDepth
+	}
+
+	curDepth++
+	maxDepth2Helper(root.Left, curDepth, answer)
+	curDepth--
+
+	curDepth++
+	maxDepth2Helper(root.Right, curDepth, answer)
+	curDepth--
+}

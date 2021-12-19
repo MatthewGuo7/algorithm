@@ -99,6 +99,46 @@ func PreOrder2(root *TreeNode) []int  {
 
 }
 
+// N叉树前序遍历
+ type Node struct {
+     Val int
+     Children []*Node
+ }
+
+func preorder(root *Node) []int {
+	ret := make([]int, 0)
+	if root == nil {
+		return nil
+	}
+
+	stack := make([]*Node,0)
+	stack = append(stack, root)
+
+	for len(stack) > 0 {
+		top := stack[len(stack)-1]
+		ret = append(ret, top.Val)
+		stack = stack[:len(stack)-1]
+
+		for index := len(top.Children)-1; index >= 0; index--{
+			stack = append(stack, top.Children[index])
+		}
+	}
+
+	return ret
+}
+
+func preorderHelper2(root *Node, answer *[]int) {
+	if root == nil {
+		return
+	}
+
+	*answer = append(*answer, root.Val)
+
+	for _, child := range root.Children {
+		preorderHelper2(child, answer)
+	}
+}
+
 func TestTraveser(t *testing.T) {
 
 }
