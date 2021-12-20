@@ -163,3 +163,29 @@ func lowestCommonAncestor3(root, p, q *ParentTreeNode) *ParentTreeNode{
 
 	return nil
 }
+
+func lowestCommonAncestor6(root, p, q *TreeNode) *TreeNode {
+	var answer *TreeNode
+	dfs4(root, p, q, &answer)
+
+	return answer
+}
+
+func dfs4(root, p, q *TreeNode, answer **TreeNode) []bool{
+	if root == nil {
+		return []bool{false, false}
+	}
+
+	leftRet := dfs4(root.Left, p, q, answer)
+	rightRet := dfs4(root.Right, p, q, answer)
+
+	ret := make([]bool, 2)
+	ret[0] = (leftRet[0] || rightRet[1] || root == p)
+	ret[1] = leftRet[0] || rightRet[1] || root == q
+
+	if ret[0] && ret[1] && answer == nil {
+		answer = root
+	}
+
+	return ret
+}
